@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define INF INT_MAX
+#define INF 99
 
 // Structure to represent an edge
 struct Edge {
