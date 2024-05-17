@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-
 #define INF 99
-
 // Structure to represent an edge
 struct Edge {
     int src, dest, weight;
 };
-
 // Function to print the solution
 void printArr(int dist[], int n) {
     printf("Vertex Distance from Source\n");
@@ -18,7 +15,6 @@ void printArr(int dist[], int n) {
         else
             printf("%d \t\t %d\n", i, dist[i]);
 }
-
 // The main function that finds shortest distances from src to all other vertices
 void BellmanFord(struct Edge edges[], int V, int E, int src) {
     int dist[V];
@@ -49,18 +45,13 @@ void BellmanFord(struct Edge edges[], int V, int E, int src) {
             return;
         }
     }
-    printf("Adjacency matrix:\n");
     printArr(dist, V);
 }
-
 int main() {
     int V, E = 0, src;
-
     printf("Enter the number of vertices: ");
     scanf("%d", &V);
-
     int adjMatrix[V][V];
-
     printf("Enter the adjacency matrix (use %d for infinity):\n", INF);
     for (int i = 0; i < V; i++) {
         for (int j = 0; j < V; j++) {
@@ -70,7 +61,6 @@ int main() {
             }
         }
     }
-
     struct Edge edges[E];
     int k = 0;
     for (int i = 0; i < V; i++) {
@@ -83,7 +73,6 @@ int main() {
             }
         }
     }
-
     printf("Enter the source vertex: ");
     scanf("%d", &src);
 
