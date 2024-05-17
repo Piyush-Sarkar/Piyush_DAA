@@ -49,7 +49,7 @@ void BellmanFord(struct Edge edges[], int V, int E, int src) {
             return;
         }
     }
-
+    printf("Adjacency matrix:\n");
     printArr(dist, V);
 }
 
