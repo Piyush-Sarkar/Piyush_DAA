@@ -1,46 +1,35 @@
-#include <stdio.h>
-// A utility function that returns
-// maximum of two integers
-int max(int a, int b) { 
-  return (a > b) ? a : b; 
+#include<stdio.h>
+int max(int a, int b) {
+   return (a > b) ? a : b;
 }
-// Returns the maximum value that can be
-// put in a knapsack of capacity W
-int knapSack(int W, int wt[], int val[], int n)
-{
-    // Base Case
-    if (n == 0 || W == 0)
-        return 0;
-    // If weight of the nth item is more than
-    // Knapsack capacity W, then this item cannot
-    // be included in the optimal solution
-    if (wt[n - 1] > W)
-        return knapSack(W, wt, val, n - 1);
-    // Return the maximum of two cases:
-    // (1) nth item included
-    // (2) not included
-    else
-        return max(
-            val[n - 1] + knapSack(W - wt[n - 1], wt, val, n - 1),
-            knapSack(W, wt, val, n - 1));
+int knapsack(int W, int wt[], int val[], int n) {
+   int i, w;
+   int knap[n + 1][W + 1];
+   for (i = 0; i <= n; i++) {
+      for (w = 0; w <= W; w++) {
+         if (i == 0 || w == 0)
+            knap[i][w] = 0;
+         else if (wt[i - 1] <= w)
+            knap[i][w] = max(val[i - 1] + knap[i - 1][w - wt[i - 1]], knap[i - 1][w]);
+         else
+            knap[i][w] = knap[i - 1][w];
+      }
+   }
+   return knap[n][W];
 }
-// Driver code
-int main()
-{
-    int n, W;    
-    printf("Enter the number of items: ");
-    scanf("%d", &n);
-    int profit[n], weight[n];
-    printf("Enter the profits of the items:\n");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &profit[i]);
-    }
-    printf("Enter the weights ofthe items:\n");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &weight[i]);
-    }  
-    printf("Enter the capacity of the knapsack: ");
-    scanf("%d", &W);
-    printf("The maximum profit is %d\n", knapSack(W, weight, profit, n));   
-    return 0;
+int main() {
+   int n, W;
+   printf("Enter the number of items: ");
+   scanf("%d", &n);
+   int val[n], wt[n];
+   printf("Enter the values of items: ");
+   for (int i = 0; i < n; i++)
+      scanf("%d", &val[i]);
+   printf("Enter the weights of items: ");
+   for (int i = 0; i < n; i++)
+      scanf("%d", &wt[i]);
+   printf("Enter the capacity of the knapsack: ");
+   scanf("%d", &W);
+   printf("The maximum value that can be put in a knapsack of capacity %d is: %d\n", W, knapsack(W, wt, val, n));
+   return 0;
 }
